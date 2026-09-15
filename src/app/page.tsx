@@ -18,7 +18,7 @@ export default function Home() {
     <main className="min-h-screen bg-gray-50 px-6 py-16 text-gray-900">
       <div className="mx-auto max-w-5xl">
         <header className="mb-12">
-          <h1 className="text-4xl font-bold">Neighborhood Listing Platform</h1>
+          <h1 className="text-4xl font-bold">Neighborhood Listing Platform Demo</h1>
           <p className="mt-4 max-w-2xl text-lg text-gray-600">
             A simple platform for finding local property listings, community
             sponsors, and helpful neighborhood resources.
