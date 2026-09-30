@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Property",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "property_id",
+    "address",
+    "city",
+    "state",
+    "zip_code",
+    "price",
+    "bedrooms",
+    "bathrooms",
+    "square_feet",
+    "amenities",
+    "local_sponsors"
+  ],
+  "properties": {
+    "property_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "address": {
+      "type": "string",
+      "minLength": 1
+    },
+    "city": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "zip_code": {
+      "type": "string",
+      "pattern": "^[0-9]{5}$"
+    },
+    "price": {
+      "type": "number",
+      "minimum": 0
+    },
+    "bedrooms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "bathrooms": {
+      "type": "number",
+      "minimum": 0
+    },
+    "square_feet": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "amenities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "local_sponsors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}

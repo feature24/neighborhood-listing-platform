@@ -1,0 +1,109 @@
+[
+  {
+    "property_id": "prop-pinecrest-101",
+    "address": "412 Whispering Pines Way",
+    "city": "Riverdale",
+    "state": "CO",
+    "zip_code": "80401",
+    "price": 549000,
+    "bedrooms": 3,
+    "bathrooms": 2.5,
+    "square_feet": 2150,
+    "amenities": [
+      "Attached Two-Car Garage",
+      "Hardwood Flooring",
+      "Quartz Countertops",
+      "Fenced Backyard"
+    ],
+    "local_sponsors": [
+      "sp-riverdale-coffee-co",
+      "sp-evergreen-landscaping"
+    ]
+  },
+  {
+    "property_id": "prop-oakridge-202",
+    "address": "884 Meadowview Terrace",
+    "city": "Silverwood",
+    "state": "WA",
+    "zip_code": "98004",
+    "price": 875000,
+    "bedrooms": 4,
+    "bathrooms": 3.5,
+    "square_feet": 3200,
+    "amenities": [
+      "Solar Panel System",
+      "Chef Kitchen with Island",
+      "Walk-In Closet",
+      "Covered Patio",
+      "EV Charging Station"
+    ],
+    "local_sponsors": [
+      "sp-silverwood-bakery",
+      "sp-cascade-fitness-hub"
+    ]
+  },
+  {
+    "property_id": "prop-cedarbluff-303",
+    "address": "157 Solano Vista Court",
+    "city": "Sunnyvale",
+    "state": "CA",
+    "zip_code": "94086",
+    "price": 1250000,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "square_feet": 1820,
+    "amenities": [
+      "Smart Home Automation",
+      "Energy Star Appliances",
+      "Drought-Tolerant Landscaping",
+      "Primary Suite Balcony"
+    ],
+    "local_sponsors": [
+      "sp-bay-clean-solar",
+      "sp-sunnyvale-bookshop",
+      "sp-valley-bike-works"
+    ]
+  },
+  {
+    "property_id": "prop-maplewood-404",
+    "address": "629 Birchwood Hollow Drive",
+    "city": "Maple Valley",
+    "state": "OR",
+    "zip_code": "97035",
+    "price": 420000,
+    "bedrooms": 2,
+    "bathrooms": 1.5,
+    "square_feet": 1280,
+    "amenities": [
+      "Gas Fireplace",
+      "Private Fenced Patio",
+      "In-Unit Laundry",
+      "Dedicated Storage Unit"
+    ],
+    "local_sponsors": [
+      "sp-willamette-cafe-roasters"
+    ]
+  },
+  {
+    "property_id": "prop-stonebrook-505",
+    "address": "1043 Brookside Crossing",
+    "city": "Clearwater",
+    "state": "FL",
+    "zip_code": "33755",
+    "price": 689000,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "square_feet": 3450,
+    "amenities": [
+      "Inground Heated Pool",
+      "Outdoor Summer Kitchen",
+      "Screened Lanai",
+      "Dual-Zone HVAC",
+      "Impact Windows"
+    ],
+    "local_sponsors": [
+      "sp-clearwater-coastal-grill",
+      "sp-suncoast-pool-care"
+    ]
+  }
+]

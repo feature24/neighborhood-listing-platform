@@ -2,46 +2,13 @@ import PropertyCard from "../components/PropertyCard";
 import SearchFilters from "../components/SearchFilters";
 import SponsorBanner from "../components/SponsorBanner";
 import type { Property, Sponsor } from "../types";
+import generatedProperties from "../../data/validated/properties.json";
 
-const properties: Property[] = [
-  {
-    id: "1",
-    title: "Modern Family Home",
-    address: "123 Maple Street",
-    city: "Whittier, CA",
-    price: 725000,
-    bedrooms: 3,
-    bathrooms: 2,
-    squareFeet: 1650,
-    imageUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
-  },
-  {
-    id: "2",
-    title: "Cozy Neighborhood House",
-    address: "456 Oak Avenue",
-    city: "Pico Rivera, CA",
-    price: 649000,
-    bedrooms: 3,
-    bathrooms: 2,
-    squareFeet: 1420,
-    imageUrl: "https://images.unsplash.com/photo-1570129477492-45c003edd2be",
-  },
-  {
-    id: "3",
-    title: "Spacious Two-Story Home",
-    address: "789 Pine Drive",
-    city: "Norwalk, CA",
-    price: 810000,
-    bedrooms: 4,
-    bathrooms: 3,
-    squareFeet: 2100,
-    imageUrl: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
-  },
-];
+const properties: Property[] = generatedProperties;
 
 const sponsor: Sponsor = {
-  id: "1",
-  name: "Neighborhood Home Services",
+  sponsor_id: "sp-riverdale-coffee-co",
+  name: "Riverdale Coffee Co.",
   url: "https://example.com",
 };
 
@@ -68,7 +35,10 @@ export default function Home() {
 
           <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {properties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+              <PropertyCard
+                key={property.property_id}
+                property={property}
+              />
             ))}
           </div>
         </section>
