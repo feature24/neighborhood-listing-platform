@@ -14,7 +14,13 @@ const validate = ajv.compile(schema);
 
 // Start with a valid property for each test.
 const validProperty = properties[0];
+const validResult = validate(validProperty);
 
+if (validResult) {
+  console.log("PASS - Valid property was accepted.");
+} else {
+  console.log("FAIL - Valid property was rejected.");
+}
 const tests = [
   {
     name: "Missing property ID",
