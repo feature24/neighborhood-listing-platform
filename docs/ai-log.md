@@ -49,3 +49,14 @@ I tested keyboard navigation using Tab, Shift+Tab, Enter, and Space. All interac
 After changing the property headings to h3, I manually checked the page again and reran Lighthouse. The Accessibility score remained 100.
 
 ESLint completed without errors, and the Next.js production build compiled successfully.
+## Property Data Model AI Collaboration
+
+| Tool | Prompt | Output Used | Output Rejected | Verification | Commit |
+|---|---|---|---|---|---|
+| ChatGPT | Given these fictional listing requirements, propose a strict JSON Schema for a neighborhood property platform. Required fields are property_id, address, city, state, zip_code, price, bedrooms, bathrooms, square_feet, amenities, and local_sponsors. Identify ambiguous business rules before writing the schema. Then provide one valid example and intentionally invalid examples for a missing property ID, negative price, bad ZIP code, and unknown field. Explain what the validator should reject. | Used recommendations for required fields, nonnegative values, five-digit ZIP codes, unique arrays, sponsor IDs, and rejecting unknown properties. | Did not add unnecessary fields or rules that were not required by the project. | Verified the schema using AJV. Five valid records passed and the four required invalid cases were rejected. | d0bbf98 |
+| Gemini | Same property JSON Schema critique prompt as ChatGPT. | Used its identification of ambiguous rules including state format, ZIP format, bathroom values, and array uniqueness. | Rejected the suggested multipleOf 0.5 bathroom restriction because the project requirements did not specify that bathrooms must only use half-unit increments. | Compared Gemini's recommendations with the implemented schema and verified behavior using the validator tests. | d0bbf98 |
+### AI Comparison
+
+ChatGPT and Gemini both recommended strict required fields, ZIP validation, nonnegative numeric values, unique arrays, and rejecting unknown fields.
+
+Gemini proposed an additional `multipleOf: 0.5` constraint for bathrooms. This suggestion was not used because the project requirements did not specify half-bath increments. The final rules were verified with AJV rather than accepting the AI suggestions without testing.
