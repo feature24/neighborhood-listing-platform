@@ -1,17 +1,24 @@
 export interface Property {
-  id: string;
-  title: string;
+  property_id: string;
   address: string;
   city: string;
+  state: string;
+  zip_code: string;
   price: number;
   bedrooms: number;
   bathrooms: number;
-  squareFeet: number;
-  imageUrl: string;
+  square_feet: number;
+  amenities: string[];
+  local_sponsors: string[];
 }
 
 export interface Sponsor {
-  id: string;
+  sponsor_id: string;
   name: string;
   url: string;
+}
+
+export interface PropertySponsor {
+  property_id: string;
+  sponsor_id: string;
 }

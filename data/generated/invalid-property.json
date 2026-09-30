@@ -1,0 +1,19 @@
+{
+  "property_id": "bad-property-001",
+  "address": "123 Test Street",
+  "city": "Testville",
+  "state": "California",
+  "zip_code": "ABC12",
+  "price": -500000,
+  "bedrooms": -2,
+  "bathrooms": 2,
+  "square_feet": 0,
+  "amenities": [
+    "Pool",
+    "Pool"
+  ],
+  "local_sponsors": [
+    "sponsor-test"
+  ],
+  "unknown_field": "This should not be allowed"
+}
