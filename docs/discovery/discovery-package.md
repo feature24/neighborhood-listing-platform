@@ -234,8 +234,28 @@ Privacy and Limitations
 No real participants were contacted. The notes and personas are fictional. No private stakeholder information was supplied to the AI tools. Proposed needs remain assumptions requiring confirmation.
 Evidence
 The Gemini and AI Studio prompts and responses are included in this document. ChatGPT-assisted drafts appear in the relevant sections.
-GitHub commit: Pending. The actual commit hash will be added after the discovery files are committed.
+Discovery documentation has been committed to GitHub. The commit links are listed under Commit Evidence.
 
 
+
+
+
+
+
+
+GitHub Project Evidence
+
+Backlog · Neighborhood Listing Platform — Week 8 MVP 
+Commit Evidence
+Discovery package:
+https://github.com/feature24/neighborhood-listing-platform/commit/4da39a63fa2ca6cde93d9774f42443b7c962bf01
+Assumptions and stakeholder details:
+https://github.com/feature24/neighborhood-listing-platform/commit/c047b15b62ddd962beca05953dc0aab605e6c971
+Week 8 MVP Planning Issue:
+https://github.com/feature24/neighborhood-listing-platform/issues/13
+
+Owner: Jacob De Luna (@feature24).
+US1–US7 are selected for Week 8. US8 is deferred.
+Implementation and acceptance testing are pending.
 
 
