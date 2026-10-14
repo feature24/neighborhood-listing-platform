@@ -1,0 +1,9 @@
+﻿Lab 5 manual verification:
+- Loading message observed under Slow 4G.
+- Blocking /api/properties displayed the error message and Try again.
+- Unblocking and retrying restored the listing cards.
+- Temporarily unapproving the three public demo listings displayed the empty state.
+- Demo listing approval restored; three cards returned.
+- UI screenshots are saved in the submission Google Doc.
+- Clean-schema rebuild test passed with 4 seeded properties and rolled back.
+- Browser extensions caused a hydration warning; disabling them removed it.
