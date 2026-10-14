@@ -60,3 +60,38 @@ ESLint completed without errors, and the Next.js production build compiled succe
 ChatGPT and Gemini both recommended strict required fields, ZIP validation, nonnegative numeric values, unique arrays, and rejecting unknown fields.
 
 Gemini proposed an additional `multipleOf: 0.5` constraint for bathrooms. This suggestion was not used because the project requirements did not specify half-bath increments. The final rules were verified with AJV rather than accepting the AI suggestions without testing.
+## Lab 5: database and RLS collaboration
+
+Tools used: ChatGPT and Gemini.
+
+ChatGPT helped prepare the migration, fictional seed, server-only client,
+validated GET/POST routes, UI states, role tests, and documentation.
+Gemini's exact review prompt is in gemini-database-review-prompt.txt.
+Its response is preserved in gemini-database-review.txt.
+
+Useful review output:
+- Confirmed that column grants and ownership policies protect writes.
+- Highlighted that approved listings are frozen for owner edits.
+- Encouraged distinguishing permission failures from data constraints.
+
+Rejected or corrected output:
+- Ownership spoofing was already blocked by auth.uid() = user_id.
+  The POST route derives identity from a verified JWT.
+- Adding explicit inquiry UPDATE/DELETE denial policies is unnecessary
+  when no grants or allow policies exist.
+- gen_random_uuid() is built into modern PostgreSQL; no new extension
+  was necessary for the successfully applied migration.
+- The proposed ownership-default patch conflicts with the tested route
+  and is not needed for the current design.
+- Suggested SQL tests lack transaction wrappers and real test-user IDs.
+  demo-private-1 is a fictional ownerless seed record.
+- Self-approval attempts hit column privilege denial before the RLS check.
+
+Verification observed:
+- Lint and build passed after adding the routes.
+- Public UI loaded three approved listings and the active sponsor.
+- Twelve live API role tests passed; raw responses were saved.
+- Administrator approval and negative-price constraint test passed.
+- Further validation results are stored in docs/evidence.
+
+Commit reference: pending final commit.

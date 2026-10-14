@@ -1,0 +1,84 @@
+As a defensive database engineer reviewing this PostgreSQL schema and RLS plan, overall, the design is robust: table grants restrict unauthorized column access, constraints enforce data hygiene (e.g., zip codes, regex patterns), and RLS policies tie actions cleanly to auth.uid().
+
+However, a security audit reveals a few subtle privilege risks, validation loopholes, and constraint gaps. Below is the analysis of risks along with minimal changes and exact SQL verification tests.
+
+1. Risk Analysis & Proposed Minimal Changes
+Risk A: Property Ownership Transfer via user_id on Insert/Update
+Issue: Although the column grant for properties update excludes user_id, the insert grant includes user_id. Furthermore, the policy properties_insert_own checks with check ((select auth.uid()) = user_id). While an authenticated user can technically only insert their own user_id, relying on user input for user_id is an unnecessary architectural risk if they pass someone else's ID that happens to match their own or attempt spoofing tricks via client payloads.
+
+Minimal Change: Default user_id automatically using auth.uid() in the table definition rather than requiring it in the insert payload/grant.
+
+Risk B: Inquiries Table Missing Update/Delete Controls
+Issue: The inquiries table has grant select, insert on public.inquiries to authenticated;, but no update or delete grants. While omitting them denies access by default, it leaves the table without explicit policy locks for updates/deletes. If an attacker tries an update, PostgreSQL throws a database authorization failure, which is correct, but adding explicit restrictive policies or ensuring no update grant is crystal clear is better practice. (Note: Leaving it ungranted on update/delete is secure, but let's ensure no unintended holes exist).
+
+Risk C: Approved Property Modification Lockout vs. Update Policy
+Issue: The policy properties_update_own_unapproved restricts updates using using (approved = false) with check (approved = false). However, once a property is approved by an administrator, the owner completely loses the ability to update any field (even non-sensitive fields like description/amenities if added later), because properties_read_approved allows reading, but no update policy exists for approved rows for owners. If the project requirement states “Owners edit only their own unapproved listings”, this behavior is correct. But if owners should be able to edit pending edits or if approval freezes listings permanently, it must be explicitly understood. Given the requirement “Owners edit only their own unapproved listings”, this is working as designed.
+
+Risk D: Missing inquiry_id Default Generation Fallback
+Issue: inquiry_id uuid primary key default gen_random_uuid() relies on extensions. Ensure uuid-ossp or pgcrypto is enabled beforehand, otherwise inserts will fail with a function-not-found error.
+
+2. Defensive SQL Migration Patch
+Apply these minor adjustments to patch validation and default assignment security:
+
+SQL
+begin;
+
+-- Ensure extensions for random UUIDs are available
+create extension if not exists "pgcrypto";
+
+-- Fix properties table to default user_id automatically from auth.uid()
+alter table public.properties
+  alter column user_id set default auth.uid();
+
+-- Revoke user_id from the insert grant so clients cannot tamper with it
+revoke insert on public.properties from authenticated;
+grant insert (
+  property_id, address, city, state, zip_code,
+  price, bedrooms, bathrooms, square_feet, amenities
+) on public.properties to authenticated;
+
+commit;
+3. Exact Executable Tests
+Here are exact verification tests distinguishing Database Authorization Failures (permission/grant/RLS denials) from CHECK Constraint Failures (data validation errors).
+
+Test 1: Check Constraint Failure (Invalid State Code)
+Expected Result: Database rejects with a CHECK constraint violation (Data validation error), not an RLS error.
+
+SQL
+-- Executed as an authenticated property owner session (placeholder credentials)
+set local role authenticated;
+-- Simulate JWT auth context (replace UUID with a valid test user ID)
+set local request.jwt.claim.sub = '00000000-0000-0000-0000-000000000001';
+
+insert into public.properties (
+  address, city, state, zip_code, price, bedrooms, bathrooms, square_feet
+) values (
+  '123 Test St', 'Whittier', 'INVALID_STATE', '90601', 500000, 3, 2.0, 1500
+);
+-- Failure expected: violates check constraint on state (~ '^[A-Z]{2}$')
+Test 2: Database Authorization / RLS Failure (Unauthorized Update)
+Expected Result: Database rejects with 0 rows affected or an RLS policy violation (Authorization failure), because User B cannot update User A's unapproved property.
+
+SQL
+-- Executed as User B (different authenticated user)
+set local role authenticated;
+set local request.jwt.claim.sub = '00000000-0000-0000-0000-000000000002';
+
+update public.properties
+set price = 400000
+where property_id = 'demo-private-1'; -- Owned by User A
+-- Failure expected: RLS policy restricts modification to row owner where user_id matches auth.uid()
+Test 3: Privilege Escalation Prevention (Approving Own Listing)
+Expected Result: Database denies the operation because the with check (approved = false) clause blocks setting approved = true on insert/update.
+
+SQL
+-- Executed as User A (owner) trying to self-approve a listing
+set local role authenticated;
+set local request.jwt.claim.sub = '00000000-0000-0000-0000-000000000001';
+
+insert into public.properties (
+  address, city, state, zip_code, price, bedrooms, bathrooms, square_feet, approved
+) values (
+  '456 Hack Ave', 'Whittier', 'CA', '90601', 600000, 2, 1.0, 1200, true
+);
+-- Failure expected: RLS policy violation due to `approved = false` constraint in WITH CHE
