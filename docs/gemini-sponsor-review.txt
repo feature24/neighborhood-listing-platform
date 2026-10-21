@@ -1,0 +1,24 @@
+Gemini adversarial sponsor review
+
+Useful recommendations:
+- Test campaign boundaries.
+- Test leading-zero ZIP handling.
+- Test placement mismatch.
+- Test exact ZIP precedence over a higher-tier radius-only sponsor.
+- Test sponsor ID as the final stable tie-breaker.
+- Test raw-IP URL rejection.
+- Require exact redirect destination equality.
+- Reject malformed or incomplete sponsor records.
+
+Recommendations not implemented:
+- Exclusive campaign end times were not adopted because this implementation intentionally treats start and end boundaries as inclusive.
+- ZIP+4 normalization was not added because the project contract uses five-digit ZIP codes.
+- Floating-point Haversine changes were not added because this class implementation consumes an already supplied coarse distance rather than calculating geographic distance itself.
+- High-concurrency impression-count race handling was not implemented because distributed traffic coordination is outside the scope of this class project.
+- No profiling or sensitive-trait targeting suggestions were used.
+
+Verification:
+- Automated sponsor tests were expanded using useful Gemini edge cases.
+- Unsafe HTTP URLs and raw IP destinations are rejected.
+- Redirect destination equality is enforced.
+- ESLint and the Next.js production build are rerun before commit.

@@ -95,3 +95,22 @@ Verification observed:
 - Further validation results are stored in docs/evidence.
 
 Commit reference: pending final commit.
+## Sponsor Eligibility and Selection AI Collaboration
+
+| Tool | Prompt | Output Used | Output Rejected | Verification | Commit |
+|---|---|---|---|---|---|
+| ChatGPT | Act as an adversarial tester for this contextual sponsor-selection function. Generate boundary cases involving dates, ZIP codes, empty data, ties, unapproved records, and unsafe URLs. Do not propose user profiling. | Used guidance for deterministic eligibility, explicit tie-breaking, safe HTTPS validation, exact destination matching, disclosure, fallback behavior, telemetry restraint, and automated tests. | Initial implementation attempts for the dynamic Next.js redirect folder failed because PowerShell interpreted `[sponsorId]` specially. Those commands were corrected and the route was recreated using literal-path handling. | Sponsor tests passed, safe redirect tests returned the expected 400 errors, the live UI displayed Sponsored Partner, ESLint passed, and the production build succeeded. | Sponsor eligibility and deterministic selection |
+| Gemini | Adversarially test the sponsor selector using approval, dates, ZIP/radius, placement, deterministic ordering, and safe URL rules. Identify edge cases and weaknesses without proposing profiling. | Used additional tests for placement mismatch, exact ZIP precedence over higher tier radius matches, sponsor-ID final tie-breaking, raw-IP URL rejection, and the exact campaign end boundary. | Did not adopt exclusive end dates, ZIP+4 normalization, Haversine precision changes, or high-concurrency impression coordination because they conflict with the chosen contract or exceed the class project scope. | New edge cases were converted into automated tests, followed by final sponsor tests, ESLint, and a Next.js production build. | Sponsor eligibility and deterministic selection |
+
+### Sponsor AI Comparison
+
+ChatGPT was used primarily to implement and iteratively verify the sponsor-selection system. It helped structure the eligibility rules, deterministic selector, disclosure UI, safe redirect route, database eligibility function, telemetry restraint, and evidence workflow.
+
+Gemini was used as an adversarial reviewer after the initial implementation. Its strongest contributions were additional boundary tests, particularly exact-ZIP precedence, the final sponsor-ID tie-breaker, placement mismatch, raw-IP URL rejection, and campaign date boundaries.
+
+Not every AI recommendation was accepted. Gemini recommended considering an exclusive end-date boundary, but the implemented contract intentionally uses inclusive campaign boundaries. ZIP+4 normalization and high-concurrency impression coordination were also outside the requirements for this project.
+
+The final implementation was verified through executable tests and live behavior rather than accepting either AI tool's output without checking it.
+
+Gemini's exact prompt is stored in `docs/gemini-sponsor-review-prompt.txt`.
+The review summary is stored in `docs/gemini-sponsor-review.txt`.

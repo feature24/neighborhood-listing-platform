@@ -1,0 +1,22 @@
+Sponsor selection tests
+PASS: 16
+FAIL: 0
+
+PASS: exact ZIP match qualifies
+PASS: nearby radius match qualifies
+PASS: inactive sponsor rejected
+PASS: expired sponsor rejected
+PASS: unapproved sponsor rejected
+PASS: tie uses shorter distance before impressions
+PASS: no matching sponsor returns null
+PASS: empty candidates returns null
+PASS: valid HTTPS sponsor URL accepted
+PASS: unsafe HTTP sponsor URL rejected
+PASS: audit dataset deterministically selects Sponsor C
+PASS: placement mismatch rejected
+PASS: exact ZIP outranks higher tier radius-only sponsor
+PASS: final tie breaker uses sponsor ID alphabetically
+PASS: raw IP sponsor URL rejected
+PASS: campaign exact end time remains eligible
+
+Audit winner: sponsor-c

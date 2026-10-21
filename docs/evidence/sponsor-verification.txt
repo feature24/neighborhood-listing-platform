@@ -1,0 +1,49 @@
+Sponsor Eligibility and Selection Evidence
+
+1. Automated selector tests
+   Command:
+   node scripts/test-sponsor-selection.mjs
+
+   Result:
+   PASS total: 11
+   FAIL total: 0
+   Audit winner: sponsor-c
+
+2. Lint
+   Command:
+   npm.cmd run lint
+
+   Result:
+   Passed with no ESLint errors.
+
+3. Production build
+   Command:
+   npm.cmd run build
+
+   Result:
+   Next.js production build completed successfully.
+   TypeScript completed successfully.
+
+4. Safe redirect route
+   Route:
+   /api/sponsors/[sponsorId]/redirect
+
+5. Unsafe HTTP destination test
+   Result:
+   HTTP 400
+   Code: UNSAFE_SPONSOR_URL
+
+6. Mismatched HTTPS destination test
+   Result:
+   HTTP 400
+   Code: DESTINATION_MISMATCH
+
+7. Disclosure verification
+   Live UI displayed:
+   Sponsored Partner
+   Sponsor C
+   Visit Sponsor C
+
+8. Deterministic audit dataset
+   Sponsor D is rejected because status is PENDING.
+   Sponsor C is selected because Gold outranks Silver and Sponsor C is closer than Sponsor B.
