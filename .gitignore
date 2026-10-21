@@ -43,3 +43,5 @@ node_modules/
 .next/
 out/
 !.env.example
+
+src/app/favicon.ico
