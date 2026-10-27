@@ -1,14 +1,28 @@
 "use client";
 
+import Image from "next/image";
 import type { Property } from "../types";
+import { auditAssets } from "../data/audit-assets";
 
 interface PropertyCardProps {
   property: Property;
 }
 
 export default function PropertyCard({ property }: PropertyCardProps) {
+  const asset = auditAssets.propertyListing;
+
   return (
     <article className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+      <div className="relative mb-4 aspect-[16/9] overflow-hidden rounded-md bg-gray-100">
+        <Image
+          src={asset.src}
+          alt={asset.alt}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover"
+        />
+      </div>
+
       <h3 className="text-xl font-semibold">
         {property.address}
       </h3>

@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect } from "react";
 import type { Sponsor } from "../types";
+import { auditAssets } from "../data/audit-assets";
 
 interface SponsorBannerProps {
   sponsor: Sponsor;
@@ -14,6 +16,8 @@ export default function SponsorBanner({
   placement = "listing-results",
   pageContext = "property-results",
 }: SponsorBannerProps) {
+  const asset = auditAssets.sponsorBanner;
+
   useEffect(() => {
     const event = {
       event: "sponsor_impression",
@@ -23,15 +27,8 @@ export default function SponsorBanner({
       page_context: pageContext,
     };
 
-    console.info(
-      "Sponsor telemetry:",
-      event,
-    );
-  }, [
-    sponsor.sponsor_id,
-    placement,
-    pageContext,
-  ]);
+    console.info("Sponsor telemetry:", event);
+  }, [sponsor.sponsor_id, placement, pageContext]);
 
   const safeRedirect =
     `/api/sponsors/${encodeURIComponent(
@@ -45,9 +42,17 @@ export default function SponsorBanner({
       className="rounded-lg border border-gray-200 bg-gray-50 p-4"
       aria-label={`Sponsored Partner: ${sponsor.name}`}
     >
-      <p
-        className="text-sm font-semibold uppercase tracking-wide text-gray-600"
-      >
+      <div className="relative mb-4 aspect-[10/3] overflow-hidden rounded-md bg-blue-50">
+        <Image
+          src={asset.src}
+          alt={asset.alt}
+          fill
+          sizes="(max-width: 640px) 100vw, 700px"
+          className="object-cover"
+        />
+      </div>
+
+      <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">
         Sponsored Partner
       </p>
 

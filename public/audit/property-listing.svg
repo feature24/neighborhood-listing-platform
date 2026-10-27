@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#dbeafe"/>
+  <rect y="470" width="1200" height="205" fill="#bbf7d0"/>
+  <circle cx="1040" cy="110" r="58" fill="#fde68a"/>
+
+  <rect x="310" y="300" width="580" height="260" rx="8" fill="#f8fafc"/>
+  <polygon points="260,320 600,120 940,320" fill="#475569"/>
+
+  <rect x="535" y="405" width="130" height="155" fill="#92400e"/>
+  <rect x="370" y="365" width="115" height="100" fill="#bfdbfe"/>
+  <rect x="715" y="365" width="115" height="100" fill="#bfdbfe"/>
+
+  <rect x="120" y="515" width="960" height="26" rx="13" fill="#86efac"/>
+
+  <text x="600" y="625"
+        text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="32"
+        font-weight="700"
+        fill="#1f2937">
+    Neighborhood Property Listing
+  </text>
+</svg>
